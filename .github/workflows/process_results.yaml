@@ -66,6 +66,13 @@ jobs:
       - name: Show environment packages
         run: uv pip freeze
 
+      - name: Prepare ASV workspace
+        run: |
+          mkdir -p asv_bench
+          jq \
+            '.repo = ".." | .benchmark_dir = "../monitoring" | .html_dir = "html" | .results_dir = "results"' \
+            asv.conf.json > asv_bench/asv.conf.json
+
       - name: Process and push
         run: |
           PYTHONPATH=asv-runner-code python -m asv_runner process \

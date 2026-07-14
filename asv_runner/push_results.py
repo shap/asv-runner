@@ -33,7 +33,7 @@ def run(args: argparse.Namespace) -> None:
     shutil.copy(matches[0], sha_json)
     with sha_yml.open("w") as f:
         subprocess.run(
-            ["pixi", "list", "-e", "asv", "--fields", "name,version"],
+            ["python", "-m", "pip", "freeze"],
             stdout=f,
             check=True,
         )

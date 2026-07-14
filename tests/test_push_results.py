@@ -55,7 +55,7 @@ def test_run_compresses_and_stages_for_push(
     )
 
     def fake_run(cmd: list[str], **kwargs: Any) -> subprocess.CompletedProcess[bytes]:
-        if cmd[0] == "pixi":
+        if cmd[:4] == ["python", "-m", "pip", "freeze"]:
             kwargs["stdout"].write("pkg 1.0\n")
         elif cmd[0] == "zstd":
             target = Path(cmd[-1])

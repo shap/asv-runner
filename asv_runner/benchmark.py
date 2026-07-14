@@ -23,8 +23,8 @@ def run(args: argparse.Namespace) -> None:
             "--machine=asvrunner",
             "--python=same",
             f"--set-commit-hash={args.sha}",
-            # forkserver imports pandas once and forks per benchmark; asv
-            # >=0.6.6 defaults to "spawn", which re-imports pandas in every
+            # forkserver imports SHAP once and forks per benchmark; asv
+            # >=0.6.6 defaults to "spawn", which re-imports SHAP in every
             # benchmark process and blows past the 6h job limit (GH#150).
             "--launch-method=forkserver",
             "--show-stderr",

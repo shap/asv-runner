@@ -8,8 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  ENV_FILE: environment.yml
-  PANDAS_CI: 1
+  PYTHON_VERSION: 3.13
   # Results and other data are stored away from the main branch.
   # This keeps the main branch clean and allows us to clear out
   # objects / history after being built up for long periods of time.
@@ -33,7 +32,6 @@ jobs:
       # claim reports dead runs (expired leases) on a tracking issue.
       issues: write
     steps:
-      # In order to run SHAP's actions, we have to checkout into the root directory.
       - name: Checkout SHAP
         uses: actions/checkout@v6
         with:
@@ -65,26 +63,35 @@ jobs:
             --repo-dir=. \
             --branch=$BRANCH_NAME
 
-      - name: Set up pixi
-        if: steps.claim.outputs.new_commit == 'yes'
-        uses: ./.github/actions/setup-pixi
-        with:
-          environment: "asv"
-
       - name: Checkout target SHA
         if: steps.claim.outputs.new_commit == 'yes'
         run: git checkout ${{ steps.claim.outputs.sha }}
 
-      - name: Build pandas
+      - name: Setup Python
         if: steps.claim.outputs.new_commit == 'yes'
-        run: pixi run --environment asv build-pandas --editable -Csetup-args="--werror"
+        uses: actions/setup-python@v6
+        with:
+          python-version: "${{ env.PYTHON_VERSION }}"
+
+      - name: Install SHAP and benchmark dependencies
+        if: steps.claim.outputs.new_commit == 'yes'
+        run: |
+          pip install -U pip uv
+          uv pip install --system . asv xgboost
+
+      - name: Prepare ASV workspace
+        if: steps.claim.outputs.new_commit == 'yes'
+        run: |
+          mkdir -p asv_bench
+          jq \
+            '.repo = ".." | .benchmark_dir = "../monitoring" | .html_dir = "html" | .results_dir = "results"' \
+            asv.conf.json > asv_bench/asv.conf.json
 
       - name: Run ASV Benchmarks
         if: steps.claim.outputs.new_commit == 'yes'
         env:
           SHA: ${{ steps.claim.outputs.sha }}
         run: |
-          eval "$(pixi shell-hook -e asv)"
           PYTHONPATH=asv-runner-code python -m asv_runner benchmark \
             --asv-dir=asv_bench \
             --sha=$SHA
