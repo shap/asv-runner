@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: daidahao/shap
-          # ref: feature/asv
+          ref: feature/asv
           fetch-depth: 0
 
       - name: Checkout asv-runner results branch
@@ -70,7 +70,7 @@ jobs:
         run: |
           mkdir -p asv_bench
           jq \
-            '.repo = ".." | .benchmark_dir = "../monitoring" | .html_dir = "html" | .results_dir = "results"' \
+            '.repo = ".." | .branches = ["master"] | .benchmark_dir = "../monitoring" | .html_dir = "html" | .results_dir = "results"' \
             asv.conf.json > asv_bench/asv.conf.json
 
       - name: Process and push
