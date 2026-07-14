@@ -4,7 +4,7 @@ This repository is utilized for running the ASV suite on the `feature/asv` branc
 
 Features:
 
-- Stores historic ASV results on non-default branches (e.g. `pandas_20250203`). Over time, historic results can become a significant size. By using non-default branches to store the results, we can create a new branch and then completely wipe the old branch from the repository's history.
+- Stores historic ASV results on non-default branches (e.g. `shap_2026_07_14`). Over time, historic results can become a significant size. By using non-default branches to store the results, we can create a new branch and then completely wipe the old branch from the repository's history.
 - Publishes the ASV results on https://pandas-dev.github.io/asv-runner/.
 - Uses pandas' `setup-conda` and `build_pandas` GitHub actions directly. Any changes to the pandas build process will not necessitate any maintenance here.
 - Stores `environment.yml` on each run. If a performance regression occurs because of a change in dependency, it can be detected by comparing this file to the that of the previous commit.
