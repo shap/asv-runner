@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: daidahao/shap
-          ref: feature/asv
+          # ref: feature/asv
           fetch-depth: 0
 
       - name: Checkout asv-runner results branch
