@@ -15,7 +15,7 @@ env:
   # objects / history after being built up for long periods of time.
   BRANCH_NAME: pandas_2026_01_04
   # Suppress cwd-on-sys.path so `python -m asv_runner` doesn't pick up the
-  # uncompiled pandas source checkout at the workspace root.
+  # unbuilt SHAP source checkout at the workspace root.
   PYTHONSAFEPATH: "1"
 
 permissions:
@@ -33,11 +33,12 @@ jobs:
       # claim reports dead runs (expired leases) on a tracking issue.
       issues: write
     steps:
-      # In order to run pandas' actions, we have to checkout into the root directory.
-      - name: Checkout pandas
+      # In order to run SHAP's actions, we have to checkout into the root directory.
+      - name: Checkout SHAP
         uses: actions/checkout@v6
         with:
-          repository: pandas-dev/pandas
+          repository: daidahao/shap
+          ref: feature/asv
           fetch-depth: 0
 
       - name: Checkout asv-runner results branch

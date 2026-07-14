@@ -65,7 +65,7 @@ def test_make_body_includes_commit_range_link() -> None:
         sha="abc123",
     )
     assert (
-        "[Commit Range](https://github.com/pandas-dev/pandas/compare/aaa...bbb)" in body
+        "[Commit Range](https://github.com/daidahao/shap/compare/aaa...bbb)" in body
     )
 
 
@@ -133,7 +133,7 @@ def test_make_body_with_pr_info_links_pr_and_pings_author_and_approvers() -> Non
             "approvers": ["bob", "carol"],
         },
     )
-    assert "[PR #1234](https://github.com/pandas-dev/pandas/pull/1234)" in body
+    assert "[PR #1234](https://github.com/daidahao/shap/pull/1234)" in body
     assert "cc @alice @bob @carol" in body
     assert "[Commit Range]" not in body
     assert "Subsequent benchmarks may have skipped" not in body

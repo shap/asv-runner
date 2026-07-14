@@ -25,7 +25,7 @@ DERIVED_COLUMNS = [
     "abs_change",
 ]
 GITHUB_ISSUE_LENGTH = 65000
-COMPARE_URL_BASE = "https://github.com/pandas-dev/pandas/compare/"
+COMPARE_URL_BASE = "https://github.com/daidahao/shap/compare/"
 
 
 def detect_regression(data, window_size: int = 21):
@@ -180,12 +180,12 @@ def fetch_pr_info(*, commit_range: str, sha: str) -> dict | None:
     Returns dict with keys {number, author, approvers}, or None when the range
     spans more than one commit or no PR is associated with sha.
     """
-    cmd = f'gh api "repos/pandas-dev/pandas/compare/{commit_range}"'
+    cmd = f'gh api "repos/daidahao/shap/compare/{commit_range}"'
     compare = json.loads(execute(cmd))
     if compare.get("ahead_by") != 1:
         return None
 
-    cmd = f'gh api "repos/pandas-dev/pandas/commits/{sha}/pulls"'
+    cmd = f'gh api "repos/daidahao/shap/commits/{sha}/pulls"'
     prs = json.loads(execute(cmd))
     if not prs:
         return None
@@ -195,7 +195,7 @@ def fetch_pr_info(*, commit_range: str, sha: str) -> dict | None:
     if not author:
         return None
 
-    cmd = f'gh api "repos/pandas-dev/pandas/pulls/{number}/reviews"'
+    cmd = f'gh api "repos/daidahao/shap/pulls/{number}/reviews"'
     reviews = json.loads(execute(cmd))
     approvers: set[str] = set()
     for review in reviews:
@@ -215,7 +215,7 @@ def make_body(
     shorten: bool = False,
 ) -> str:
     if pr_info is not None:
-        pr_url = f"https://github.com/pandas-dev/pandas/pull/{pr_info['number']}"
+        pr_url = f"https://github.com/daidahao/shap/pull/{pr_info['number']}"
         body = f"[PR #{pr_info['number']}]({pr_url})\n\n"
         mentions = [f"@{pr_info['author']}", *(f"@{a}" for a in pr_info["approvers"])]
         body += f"cc {' '.join(mentions)}\n\n"
