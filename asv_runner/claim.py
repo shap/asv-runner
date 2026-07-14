@@ -69,6 +69,7 @@ def read_claims(shas_path: Path) -> list[Claim]:
 
 
 def write_claims(shas_path: Path, claims: list[Claim]) -> None:
+    shas_path.parent.mkdir(parents=True, exist_ok=True)
     shas_path.write_text("".join(f"{claim.to_line()}\n" for claim in claims))
 
 

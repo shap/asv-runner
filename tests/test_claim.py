@@ -19,6 +19,7 @@ from asv_runner.claim import (
     notify_failures,
     pick_next_sha,
     read_claims,
+    write_claims,
 )
 from asv_runner.claim import run as cmd_claim
 from tests._helpers import init_remote_and_storage
@@ -130,6 +131,15 @@ def test_read_claims_ignores_blank_lines(tmp_path: Path) -> None:
     shas_path = tmp_path / "shas.txt"
     shas_path.write_text(f"sha1111\n\nsha2222 {OLD_TS} 2\n")
     assert [claim.sha for claim in read_claims(shas_path)] == ["sha1111", "sha2222"]
+
+
+def test_write_claims_creates_parent_directory(tmp_path: Path) -> None:
+    shas_path = tmp_path / "empty-storage" / "data" / "shas.txt"
+    claim = Claim(sha="sha1111", claimed_at=datetime.fromisoformat(OLD_TS), attempts=1)
+
+    write_claims(shas_path, [claim])
+
+    assert read_claims(shas_path) == [claim]
 
 
 # === cmd_claim integration ===
