@@ -64,9 +64,7 @@ def test_make_body_includes_commit_range_link() -> None:
         benchmarks=_regression_frame(),
         sha="abc123",
     )
-    assert (
-        "[Commit Range](https://github.com/shap/shap/compare/aaa...bbb)" in body
-    )
+    assert "[Commit Range](https://github.com/shap/shap/compare/aaa...bbb)" in body
 
 
 def test_make_body_only_includes_target_sha_regressions() -> None:
