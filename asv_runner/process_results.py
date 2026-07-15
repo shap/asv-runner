@@ -233,7 +233,7 @@ def make_body(
     for _, regression in regressions.iterrows():
         benchmark = regression["name"]
         params = regression["params"]
-        site_base = "https://pandas-dev.github.io/asv-runner/#"
+        site_base = "https://shap.github.io/asv-runner/#"
         url = f"{site_base}{benchmark}"
         abs_change = time_to_str(regression["abs_change"])
         severity = f"{regression['pct_change']:0.3%} ({abs_change})"
@@ -282,7 +282,7 @@ def raise_issues(input_path: Path, envs_dir: Path) -> None:
     for sha in regression_shas:
         time.sleep(2)
         needle = f"Commit {sha}"
-        cmd = f'gh search issues --repo pandas-dev/asv-runner "{needle}"'
+        cmd = f'gh search issues --repo shap/asv-runner "{needle}"'
         result = execute(cmd)
         if result != "":
             continue
@@ -311,7 +311,7 @@ def raise_issues(input_path: Path, envs_dir: Path) -> None:
 
         cmd = (
             "gh issue create"
-            " --repo pandas-dev/asv-runner"
+            " --repo shap/asv-runner"
             f' --title "{title}"'
             " --body-file -"
         )
@@ -324,7 +324,7 @@ def raise_issues(input_path: Path, envs_dir: Path) -> None:
             envs_diff += "\n```\n\nWARNING: Body has been clipped due to length."
         cmd = (
             f"gh issue comment {issue_number}"
-            " --repo pandas-dev/asv-runner"
+            " --repo shap/asv-runner"
             " --body-file -"
         )
         execute(cmd, input=envs_diff)

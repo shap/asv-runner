@@ -402,7 +402,7 @@ def _fake_execute(
         calls.append((cmd, input))
         if cmd.startswith("gh issue list"):
             return list_result
-        return "https://github.com/pandas-dev/asv-runner/issues/99\n"
+        return "https://github.com/shap/asv-runner/issues/99\n"
 
     return _execute
 

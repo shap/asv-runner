@@ -96,7 +96,7 @@ def pick_next_sha(repo: Path, existing_shas: set[str]) -> str | None:
 def find_failure_issue() -> str | None:
     result = execute(
         "gh issue list"
-        " --repo pandas-dev/asv-runner"
+        " --repo shap/asv-runner"
         " --state open"
         " --limit 1000"
         " --json number,title"
@@ -114,14 +114,14 @@ def notify_failures(events: list[str]) -> None:
     if issue_number is None:
         cmd = (
             "gh issue create"
-            " --repo pandas-dev/asv-runner"
+            " --repo shap/asv-runner"
             f' --title "{FAILURE_ISSUE_TITLE}"'
             " --body-file -"
         )
     else:
         cmd = (
             f"gh issue comment {issue_number}"
-            " --repo pandas-dev/asv-runner"
+            " --repo shap/asv-runner"
             " --body-file -"
         )
     execute(cmd, input=body)

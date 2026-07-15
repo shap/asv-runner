@@ -99,7 +99,7 @@ def test_make_body_inlines_severity_when_params_empty() -> None:
         sha="abc123",
     )
     msg = (
-        " - [ ] [bench.bar](https://pandas-dev.github.io/asv-runner/#bench.bar)"
+        " - [ ] [bench.bar](https://shap.github.io/asv-runner/#bench.bar)"
         " - 30.000% (1.500s)"
     )
     assert msg in body
