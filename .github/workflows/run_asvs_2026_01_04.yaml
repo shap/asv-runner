@@ -35,8 +35,7 @@ jobs:
       - name: Checkout SHAP
         uses: actions/checkout@v6
         with:
-          repository: daidahao/shap
-          # ref: feature/asv
+          repository: shap/shap
           fetch-depth: 0
 
       - name: Checkout asv-runner results branch
@@ -62,10 +61,6 @@ jobs:
             --storage-dir=asv-runner \
             --repo-dir=. \
             --branch=$BRANCH_NAME
-
-      - name: Checkout SHAP asv branch
-        if: steps.claim.outputs.new_commit == 'yes'
-        run: git checkout feature/asv
 
       - name: Setup Python
         if: steps.claim.outputs.new_commit == 'yes'

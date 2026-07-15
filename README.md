@@ -1,6 +1,6 @@
 # pandas ASV Runner
 
-This repository is utilized for running the ASV suite on the `feature/asv` branch of the `daidahao/shap` repository via GitHub Actions.
+This repository is utilized for running the ASV suite on the main branch of the `shap/shap` repository via GitHub Actions.
 
 Features:
 
