@@ -103,7 +103,7 @@ def build_new_rows(input_path: Path, skip_shas: set[str], added_date: str):
             if name not in benchmark_to_param_names:
                 # benchmarks.json reflects only the latest benchmarked commit;
                 # older or concurrently-pushed result files can reference names
-                # that have since been renamed or removed in pandas.
+                # that have since been renamed or removed in SHAP.
                 print(
                     f"Skipping {name!r} for {commit_hash}: "
                     "not in current benchmarks.json."
@@ -276,7 +276,7 @@ def raise_issues(input_path: Path, envs_dir: Path) -> None:
         .drop_duplicates(subset="sha")
         .sort_values("date")["sha"]
         .unique()
-        .tolist()[-40:]
+        .tolist()[-100:]
     )
     print("Number of regressions to raise issues for:", len(regression_shas))
     for sha in regression_shas:

@@ -1,4 +1,4 @@
-"""Lease the next pandas SHA to benchmark, update shas.txt, push storage branch.
+"""Lease the next SHAP SHA to benchmark, update shas.txt, push storage branch.
 
 Each line of shas.txt is a lease: ``<sha> <claimed_at> <attempts> [abandoned]``.
 A SHA is complete when its results file exists on the storage branch; a lease
