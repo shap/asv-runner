@@ -1,0 +1,1 @@
+{"regressions": [["partition_explainer.PartitionSuite.time_multi_output", "graphs/branch-master/machine-asvrunner/python-_opt_hostedtoolcache_Python_3.13.14_x64_bin_python/xgboost/partition_explainer.PartitionSuite.time_multi_output.json", {}, null, 14.729224754999976, 9.403055991499997, [[null, 3127, 9.403055991499997, 9.667734655500013]]]]}
